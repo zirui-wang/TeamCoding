@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { NavLink } from 'react-router-dom';
-import { List, ListItem, ListItemText } from '@material-ui/core';
+import { List, ListItem } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 
@@ -12,8 +12,12 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.paper
   },
   tag: {
-    width: 80,
-    color: '#fff'
+    marginRight: '10px',
+  },
+  difficulty: {
+    minWidth: '65px',
+    color: '#fbfdfa',
+    textAlign: 'center'
   },
   diffEasy: {
     backgroundColor: '#42ebf4'
@@ -51,13 +55,15 @@ const problemList = props => {
     >
       <Typography
         className={classNames(
+          classes.difficulty,
           classes.tag,
           diffClassify(problem.difficulty, classes)
         )}
       >
         {problem.difficulty}
       </Typography>
-      <ListItemText primary={problem.id + ' ' + problem.title} />
+      <Typography className={classes.tag}>{problem.id}</Typography>
+      <Typography className={classes.tag}>{problem.title}</Typography>
     </ListItem>
   ));
   return (
