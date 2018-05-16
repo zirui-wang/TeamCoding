@@ -6,7 +6,7 @@ import { fetchProblems } from '../store/actions';
 
 class Problems extends Component {
   componentDidMount() {
-    this.props.fetchProblems();
+    // this.props.fetchProblems();
   }
 
   render() {
