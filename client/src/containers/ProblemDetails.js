@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Typography from '@material-ui/core/Typography';
 
 class ProblemDetails extends Component {
 
@@ -9,7 +10,8 @@ class ProblemDetails extends Component {
       if(element.id === Number(this.props.match.params.id)){
         problem = (
           <div>
-            {element.desc}
+            <Typography variant="title">{element.title}</Typography>
+            <Typography variant="body1">{element.desc}</Typography>
           </div>
         )
       }
