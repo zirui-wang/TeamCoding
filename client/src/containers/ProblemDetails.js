@@ -2,20 +2,20 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Typography from '@material-ui/core/Typography';
 
-class ProblemDetails extends Component {
+import { fetchProblem } from '../store/actions';
 
-  showProblem(){
-    let problem = null;
-    this.props.problems.forEach(element => {
-      if(element.id === Number(this.props.match.params.id)){
-        problem = (
-          <div>
-            <Typography variant="title">{element.title}</Typography>
-            <Typography variant="body1">{element.desc}</Typography>
-          </div>
-        )
-      }
-    });
+class ProblemDetails extends Component {
+  componentDidMount(){
+    this.props.fetchProblem(this.props.match.params.id);
+  }
+
+  showProblem() {
+    const problem = this.props.problem ? (
+      <div>
+        <Typography variant="title">{this.props.problem.title}</Typography>
+        <Typography variant="body1">{this.props.problem.desc}</Typography>
+      </div>
+    ) : null;
     return problem;
   }
 
@@ -26,8 +26,8 @@ class ProblemDetails extends Component {
 
 const mapStateToProps = state => {
   return {
-    problems: state.problems.problems
+    problem: state.problems.problem
   };
 };
 
-export default connect(mapStateToProps)(ProblemDetails);
+export default connect(mapStateToProps, { fetchProblem })(ProblemDetails);

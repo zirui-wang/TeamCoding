@@ -1,17 +1,12 @@
-import { FETCH_PROBLEMS } from './actionTypes';
+import { FETCH_PROBLEMS, FETCH_PROBLEM } from './actionTypes';
+import axios from 'axios';
 
-export const fetchProblems = () => {
-  return {
-    type: FETCH_PROBLEMS,
-    payload: [
-      {
-        title: 'Two Sum',
-        desc:
-          'Given an array of integers, return indices of the two numbers such that they add up to a specific target.',
-        difficulty: 'easy',
-        id: 1
-      }
-    ]
-  };
+export const fetchProblems = () => async dispatch => {
+  const res = await axios.get('/api/v1/problems');
+  dispatch ({ type: FETCH_PROBLEMS, payload: res.data });
 };
 
+export const fetchProblem = id => async dispatch => {
+  const res = await axios.get('/api/v1/problems/' + id);
+  dispatch ({ type: FETCH_PROBLEM, payload: res.data });
+};

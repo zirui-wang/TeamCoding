@@ -19,7 +19,7 @@ const styles = {
 
 class Problems extends Component {
   componentDidMount() {
-    // this.props.fetchProblems();
+    this.props.fetchProblems();
   }
 
   render() {

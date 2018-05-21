@@ -10,8 +10,8 @@ const styles = theme => ({
     }
   },
   selected: {
-    // color: theme.palette.secondary.main
-    color: '#b1b1b1'
+    color: theme.palette.secondary.main
+    // color: '#b1b1b1'
   }
 });
 
