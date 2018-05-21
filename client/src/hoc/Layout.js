@@ -12,7 +12,7 @@ const layout = props => {
     <React.Fragment>
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
-        <Header/>
+        <Header auth={props.auth}/>
         <main>{props.children}</main>
       </MuiThemeProvider>
     </React.Fragment>

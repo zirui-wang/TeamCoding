@@ -1,18 +1,35 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Redirect } from 'react-router-dom';
+import Auth from './auth/Auth';
+import Callback from './components/callback/Callback';
 
 import Layout from './hoc/Layout';
 import Problems from './containers/Problems';
 import ProblemDetails from './containers/ProblemDetails';
 
+const auth = new Auth();
+
+const handleAuthentication = (nextState) => {
+  if (/access_token|id_token|error/.test(nextState.location.hash)) {
+    auth.handleAuthentication(nextState.history);
+  }
+};
+
 class App extends Component {
   render() {
     return (
       <BrowserRouter>
-        <Layout>
-          <Route exact path="/problems" component={Problems} />
-          <Route path="/problems/:id" component={ProblemDetails} />
-          <Route exact path="/" render={() => (<Redirect to="/problems" />)} />
+        <Layout auth={auth}>
+          <Route exact path="/problems" component={Problems} auth={auth} />
+          <Route path="/problems/:id" component={ProblemDetails} auth={auth} />
+          <Route exact path="/" render={() => <Redirect to="/problems" />} />
+          <Route
+            path="/callback"
+            render={props => {
+              handleAuthentication(props);
+              return <Callback {...props} />;
+            }}
+          />
         </Layout>
       </BrowserRouter>
     );

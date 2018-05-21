@@ -1,6 +1,8 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
+import { withRouter } from 'react-router';
+
 import Button from '../../UI/Button';
 
 const styles = theme => ({
@@ -16,7 +18,7 @@ const styles = theme => ({
 });
 
 const navigationItems = props => {
-  const { classes } = props;
+  const { classes, auth, history } = props;
   return (
     <div className={classes.deskTopOnly}>
       <Button
@@ -29,7 +31,7 @@ const navigationItems = props => {
       >
         Problems
       </Button>
-      {props.isAuthenticated ? (
+      {auth.isAuthenticated() ? (
         <Button
           to="/favorites"
           color="inherit"
@@ -41,12 +43,12 @@ const navigationItems = props => {
           My Favorites
         </Button>
       ) : null}
-      {!props.isAuthenticated ? (
-        <Button href="/auth/google" color="inherit" size="medium">
-          Login with Google
+      {!auth.isAuthenticated() ? (
+        <Button onClick={auth.login} color="inherit" size="medium">
+          Login
         </Button>
       ) : (
-        <Button href="/api/logout" color="inherit" size="medium">
+        <Button onClick={() => auth.logout(history)} color="inherit" size="medium">
           Logout
         </Button>
       )}
@@ -54,4 +56,4 @@ const navigationItems = props => {
   );
 };
 
-export default withStyles(styles)(navigationItems);
+export default withRouter(withStyles(styles)(navigationItems));

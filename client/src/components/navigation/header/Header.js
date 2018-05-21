@@ -43,7 +43,7 @@ const header = props => {
           >
             Collaborative OJ
           </Typography>
-          <NavigationItems isAuthenticated={true}/>
+          <NavigationItems auth={props.auth}/>
         </Toolbar>
       </AppBar>
     </div>
