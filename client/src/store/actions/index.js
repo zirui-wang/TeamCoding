@@ -1,1 +1,1 @@
-export {fetchProblems, fetchProblem} from './problems';
+export {fetchProblems, fetchProblem, submitProblem} from './problems';

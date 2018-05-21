@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 import ProblemList from '../components/problemList/ProblemList';
 import NewProblem from '../components/newProblem/NewProblem';
-import { fetchProblems } from '../store/actions';
+import { fetchProblems, submitProblem } from '../store/actions';
 
 const styles = {
   root: {
@@ -26,7 +26,7 @@ class Problems extends Component {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
-        <NewProblem className={classes.newProblem} />
+        <NewProblem className={classes.newProblem} onSubmit={this.props.submitProblem}/>
         <ProblemList
           problems={this.props.problems}
           className={classes.problemList}
@@ -43,5 +43,6 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps, {
-  fetchProblems
+  fetchProblems,
+  submitProblem
 })(withStyles(styles)(Problems));

@@ -31,74 +31,73 @@ const styles = theme => ({
   }
 });
 
+const inputTextField = ({ input, label, ...custom }) => (
+    <TextField
+
+      {...input}
+      label={label}
+      fullWidth={true}
+      {...custom}
+    />
+  );
+
 const newProblem = props => {
-  const { classes, className: classNameProp } = props;
+  const { classes, handleSubmit, className: classNameProp } = props;
   const className = classNames(classes.root, classNameProp);
-  const difficultySelectField = ({ input, label, children, ...custom }) => {
-    return (
-      <FormControl className={classes.formControl}>
-        <InputLabel htmlFor="difficulty">Difficulty</InputLabel>
-        <Select
-          {...input}
-          onChange={(event) => 
-            input.onChange(event)
-          }
-          children={children}
-          {...custom}
-        />
-        <FormHelperText>Select the difficulty</FormHelperText>
-      </FormControl>
-    );
-  };
+  const difficultySelectField = ({ input, label, children, ...custom }) => (
+    <FormControl className={classes.formControl}>
+      <InputLabel htmlFor="difficulty">Difficulty</InputLabel>
+      <Select
+        {...input}
+        onChange={event => input.onChange(event)}
+        children={children}
+        {...custom}
+      />
+      <FormHelperText>Select the difficulty</FormHelperText>
+    </FormControl>
+  );
   
   return (
-    <div className={className}>
-      <form>
-        <Field
-          component={TextField}
-          type="text"
-          label="Problem Title"
-          name="title"
-          fullWidth={true}
-          helperText="Enter Problem Title"
-          className={classes.margin}
-        />
-        <Field
-          component={TextField}
-          type="text"
-          label="Problem Description"
-          name="desc"
-          fullWidth={true}
-          helperText="Enter Problem Description"
-          multiline
-          className={classes.margin}
-        />
-        <Field
-          name="difficulty"
-          component={difficultySelectField}
-          label="Difficulty"
+    <form onSubmit={handleSubmit} className={className}>
+      <Field
+        component={inputTextField}
+        name="title"
+        label="Problem Title"
+        helperText="Enter Problem Title"
+        className={classes.margin}
+      />
+      <Field
+        component={inputTextField}
+        name="desc"
+        label="Problem Description"
+        helperText="Enter Problem Description"
+        className={classes.margin}
+        multiline
+      />
+      <Field
+        name="difficulty"
+        component={difficultySelectField}
+        label="Difficulty"
+      >
+        <MenuItem value="easy">Easy</MenuItem>
+        <MenuItem value="medium">Medium</MenuItem>
+        <MenuItem value="hard">Hard</MenuItem>
+      </Field>
+      <div>
+        <Button
+          type="submit"
+          size="large"
+          variant="outlined"
+          color="primary"
+          className={classes.button}
         >
-          <MenuItem value="easy">Easy</MenuItem>
-          <MenuItem value="medium">Medium</MenuItem>
-          <MenuItem value="hard">Hard</MenuItem>
-        </Field>
-        <div>
-          <Button
-            type="submit"
-            size="large"
-            variant="outlined"
-            color="primary"
-            className={classes.button}
-          >
-            Submit
-          </Button>
-        </div>
-      </form>
-    </div>
+          Submit
+        </Button>
+      </div>
+    </form>
   );
 };
 
 export default reduxForm({
-  form: 'newProblem',
-  destroyOnUnmount: false
+  form: 'newProblem'
 })(withStyles(styles)(newProblem));
