@@ -1,12 +1,18 @@
 import React from 'react';
+import classNames from 'classnames';
 import { NavLink } from 'react-router-dom';
-import { withStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router';
+import { withStyles } from '@material-ui/core/styles';
+import IconButton from '@material-ui/core/IconButton';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@material-ui/core/Menu';
 
 import Button from '../../UI/Button';
 
 const styles = theme => ({
-  deskTopOnly: {
+  root: {
+    display: 'flex',
     '@media (max-width: 499px)': {
       display: 'none'
     }
@@ -14,13 +20,26 @@ const styles = theme => ({
   selected: {
     color: theme.palette.secondary.main
     // color: '#b1b1b1'
+  },
+  avatar: {
+    margin: 10
   }
 });
 
 const navigationItems = props => {
-  const { classes, auth, history } = props;
+  const {
+    classes,
+    className: classNameProp,
+    auth,
+    history,
+    handleClose,
+    handleMenu,
+    anchorEl
+  } = props;
+  const className = classNames(classes.root, classNameProp);
+  const open = Boolean(anchorEl);
   return (
-    <div className={classes.deskTopOnly}>
+    <div className={className}>
       <Button
         to="/problems"
         color="inherit"
@@ -49,9 +68,36 @@ const navigationItems = props => {
         </Button>
       ) : (
         <Button onClick={() => auth.logout(history)} color="inherit" size="medium">
-          Logout
+          logout
         </Button>
       )}
+      <div>
+        <IconButton
+          aria-owns={open ? 'menu-appbar' : null}
+          aria-haspopup="true"
+          onClick={handleMenu}
+          color="inherit"
+        >
+          <AccountCircle />
+        </IconButton>
+        <Menu
+          id="menu-appbar"
+          anchorEl={anchorEl}
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'right'
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'right'
+          }}
+          open={open}
+          onClose={handleClose}
+        >
+          <MenuItem onClick={handleClose}>Profile</MenuItem>
+          <MenuItem onClick={handleClose}>My account</MenuItem>
+        </Menu>
+      </div>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -23,31 +23,50 @@ const styles = {
   }
 };
 
-const header = props => {
-  const { classes } = props;
-  return (
-    <div className={classes.root}>
-      <AppBar position="static" color="default">
-        <Toolbar>
-          <IconButton
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="Menu"
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography
-            variant="title"
-            color="inherit"
-            className={classes.flex}
-          >
-            Collaborative OJ
-          </Typography>
-          <NavigationItems auth={props.auth}/>
-        </Toolbar>
-      </AppBar>
-    </div>
-  );
+class Header extends Component {
+  state = {
+    anchorEl: null
+  };
+
+  handleMenu = event => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
+
+  handleClose = () => {
+    this.setState({ anchorEl: null });
+  };
+
+  render() {
+    const { classes } = this.props;
+    return (
+      <div className={classes.root}>
+        <AppBar position="static" color="default">
+          <Toolbar>
+            <IconButton
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="Menu"
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography
+              variant="title"
+              color="inherit"
+              className={classes.flex}
+            >
+              Collaborative OJ
+            </Typography>
+            <NavigationItems
+              auth={this.props.auth}
+              anchorEl={this.state.anchorEl}
+              handleMenu={this.handleMenu}
+              handleClose={this.handleClose}
+            />
+          </Toolbar>
+        </AppBar>
+      </div>
+    );
+  }
 }
 
-export default withStyles(styles)(header);
+export default withStyles(styles)(Header);
