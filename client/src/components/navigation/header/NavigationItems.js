@@ -19,7 +19,6 @@ const styles = theme => ({
   },
   selected: {
     color: theme.palette.secondary.main
-    // color: '#b1b1b1'
   },
   avatar: {
     margin: 10
@@ -67,37 +66,36 @@ const navigationItems = props => {
           Login
         </Button>
       ) : (
-        <Button onClick={() => auth.logout(history)} color="inherit" size="medium">
-          logout
-        </Button>
+        <div>
+          <IconButton
+            aria-owns={open ? 'menu-appbar' : null}
+            aria-haspopup="true"
+            onClick={handleMenu}
+            color="inherit"
+            disableRipple
+          >
+            <AccountCircle />
+          </IconButton>
+          <Menu
+            id="menu-appbar"
+            anchorEl={anchorEl}
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'right'
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right'
+            }}
+            open={open}
+            onClose={handleClose}
+          >
+            <MenuItem onClick={handleClose}>Profile</MenuItem>
+            <MenuItem onClick={handleClose}>My account</MenuItem>
+            <MenuItem onClick={() => auth.logout(history)}>Logout</MenuItem>
+          </Menu>
+        </div>
       )}
-      <div>
-        <IconButton
-          aria-owns={open ? 'menu-appbar' : null}
-          aria-haspopup="true"
-          onClick={handleMenu}
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <Menu
-          id="menu-appbar"
-          anchorEl={anchorEl}
-          anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'right'
-          }}
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'right'
-          }}
-          open={open}
-          onClose={handleClose}
-        >
-          <MenuItem onClick={handleClose}>Profile</MenuItem>
-          <MenuItem onClick={handleClose}>My account</MenuItem>
-        </Menu>
-      </div>
     </div>
   );
 };
