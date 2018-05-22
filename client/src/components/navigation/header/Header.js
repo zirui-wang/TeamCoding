@@ -54,7 +54,7 @@ class Header extends Component {
               color="inherit"
               className={classes.flex}
             >
-              Collaborative OJ
+              Team Coding
             </Typography>
             <NavigationItems
               auth={this.props.auth}
