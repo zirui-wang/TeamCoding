@@ -5,7 +5,7 @@ import Callback from './components/callback/Callback';
 
 import Layout from './hoc/Layout';
 import Problems from './containers/Problems';
-import ProblemDetails from './containers/ProblemDetails';
+import Problem from './containers/Problem';
 
 const auth = new Auth();
 
@@ -21,7 +21,7 @@ class App extends Component {
       <BrowserRouter>
         <Layout auth={auth}>
           <Route exact path="/problems" component={Problems} auth={auth} />
-          <Route path="/problems/:id" component={ProblemDetails} auth={auth} />
+          <Route path="/problems/:id" component={Problem} auth={auth} />
           <Route exact path="/" render={() => <Redirect to="/problems" />} />
           <Route
             path="/callback"

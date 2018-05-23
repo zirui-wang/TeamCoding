@@ -1,3 +1,3 @@
-# Team Coding
+# Team Coding (Under construction...)
 
-Under construction...
+A collaborative online judgement platform supporting add/delete/edit problems.
