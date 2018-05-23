@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import ProblemDetails from '../components/problemDetail/ProblemDetail';
 import Editor from '../components/editor/Editor';
 import { fetchProblem } from '../store/actions';
+import Button from '../components/UI/Button';
 
 const styles = {
   root: {
@@ -22,21 +23,39 @@ class Problem extends Component {
     this.props.fetchProblem(this.props.match.params.id);
   }
 
-  showProblem() {
-    const problem = this.props.problem ? (
+  showProblem(problem) {
+    const problemComp = problem ? (
       <div>
-        <ProblemDetails problem={this.props.problem} />
+        <ProblemDetails problem={problem} />
       </div>
     ) : null;
-    return problem;
+    return problemComp;
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, problem } = this.props;
     return (
       <div className={classes.root}>
-        {this.showProblem()}
-        <Editor className={classes.margin} />
+        {this.showProblem(problem)}
+        <Editor className={classes.margin} problemId={problem ? problem.id : null}/>
+        <div>
+          <Button
+            size="large"
+            variant="outlined"
+            color="secondary"
+            className={classes.margin}
+          >
+            Reset
+          </Button>
+          <Button
+            size="large"
+            variant="outlined"
+            color="primary"
+            className={classes.margin}
+          >
+            Submit
+          </Button>
+        </div>
       </div>
     );
   }

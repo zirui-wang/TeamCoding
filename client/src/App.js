@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Redirect } from 'react-router-dom';
-import Auth from './auth/Auth';
+import Auth from './services/auth/Auth';
 import Callback from './components/callback/Callback';
 
 import Layout from './hoc/Layout';
