@@ -23,4 +23,8 @@ export default class Collaboration {
   change = delta => {
     this.socket.emit('change', delta);
   };
+
+  cursorMove = cursor => {
+    this.socket.emit('cursorMove', cursor);
+  }
 }

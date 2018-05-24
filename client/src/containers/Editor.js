@@ -1,24 +1,27 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
-import AceEditor from 'react-ace';
-import Collaboration from '../../services/collaboration/Collaboration';
-
-import 'brace/mode/javascript';
-import 'brace/theme/xcode';
-
 import { withStyles } from '@material-ui/core/styles';
+
+import Collaboration from '../services/collaboration/Collaboration';
+import LanguageSelector from '../components/editor/LanguageSelector';
+import EditorArea from '../components/editor/EditorArea';
+import options from '../components/editor/languageFields';
 
 const styles = theme => ({
   root: {
     width: '100%',
     maxWidth: 800
+  },
+  margin: {
+    marginBottom: 20
   }
 });
 
 class Editor extends Component {
   state = {
     editor: null,
-    collaboration: null
+    collaboration: null,
+    lang: options[1].name
   };
 
   onInit = (editor, problemId) => {
@@ -38,28 +41,35 @@ class Editor extends Component {
     }
   };
 
+  onCursorChange = (selection, event) => {
+    const cursor = selection.getCursor();
+    this.state.collaboration.cursorMove(JSON.stringify(cursor));
+  };
+
+  onChangeLanguage = event => {
+    this.setState({ lang: event.target.value });
+  };
+
   render() {
     const { classes, className: classNameProp, problemId } = this.props;
     const className = classNames(classes.root, classNameProp);
 
     const editorComp = problemId ? (
-      <AceEditor
-        onLoad={editor => this.onInit(editor, problemId)}
-        mode="javascript"
-        theme="xcode"
-        onChange={(value, event) => this.onChange(value, event)}
-        name="UNIQUE_ID_OF_DIV"
-        width="100%"
-        focus
-        editorProps={{ $blockScrolling: true }}
+      <EditorArea
+        lang={this.state.lang}
+        onChange={this.onChange}
+        onCursorChange={this.onCursorChange}
+        onInit={this.onInit}
+        problemId={problemId}
       />
     ) : null;
 
     return (
       <div className={className}>
+        <LanguageSelector onChangeLanguage={this.onChangeLanguage} value={this.state.lang} options={options} className={classes.margin}/>
         {editorComp}
       </div>
-    )
+    );
   }
 }
 

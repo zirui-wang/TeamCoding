@@ -26,5 +26,9 @@ module.exports = io => {
         console.log('WARNING: could not tie socket_id to any collaboration');
       }
     });
+
+    socket.on('cursorMove', cursor => {
+      
+    })
   });
 };

@@ -3,7 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 
 import ProblemDetails from '../components/problemDetail/ProblemDetail';
-import Editor from '../components/editor/Editor';
+import Editor from './Editor';
 import { fetchProblem } from '../store/actions';
 import Button from '../components/UI/Button';
 import Modal from '../components/UI/Modal';

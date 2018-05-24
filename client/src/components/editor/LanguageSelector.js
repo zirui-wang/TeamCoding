@@ -1,31 +1,27 @@
 import React from 'react';
 
 import MenuItem from '@material-ui/core/MenuItem';
-import TextField from '@material-ui/core/TextField';
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
 
 const languageSelector = props => {
+  const { value, onChangeLanguage, options, className: classNameProp } = props;
   return (
-    <TextField
-      id="select-lang"
-      select
-      label="Select"
-      className={classes.textField}
-      value={props.lang}
-      onChange={this.handleChange('currency')}
-      SelectProps={{
-        MenuProps: {
-          className: classes.menu
-        }
-      }}
-      helperText="Please select your currency"
-      margin="normal"
-    >
-      {props.langs.map(option => (
-        <MenuItem key={option.value} value={option.value}>
-          {option.label}
-        </MenuItem>
-      ))}
-    </TextField>
+    <form className={classNameProp}>
+      <FormControl>
+        <InputLabel htmlFor="lang-simple">Language</InputLabel>
+        <Select value={value} onChange={onChangeLanguage}>
+          {options.map(option => (
+            <MenuItem key={option.name} value={option.name}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </Select>
+        <FormHelperText>Choose the language you are familar</FormHelperText>
+      </FormControl>
+    </form>
   );
 };
 
