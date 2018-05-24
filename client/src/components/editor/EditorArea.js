@@ -6,11 +6,23 @@ import 'brace/mode/java';
 import 'brace/mode/python';
 import 'brace/theme/xcode';
 
+// const markers = [
+//   {
+//     startRow: 0,
+//     startCol: 2,
+//     endRow: 1,
+//     endCol: 20,
+//     className: 'editor_cursor_',
+//     type: 'background'
+//   }
+// ];
+
 const editorArea = props => {
   const { lang } = props;
   return (
     <AceEditor
       onLoad={editor => props.onInit(editor, props.problemId)}
+      onBeforeLoad={ace => props.setAce(ace)}
       mode={lang}
       theme="xcode"
       onChange={(value, event) => props.onChange(value, event)}
@@ -20,7 +32,7 @@ const editorArea = props => {
       name="UNIQUE_ID_OF_DIV"
       width="100%"
       focus
-      editorProps={{ $blockScrolling: true }}
+      editorProps={{ $blockScrolling: Infinity }}
     />
   );
 };

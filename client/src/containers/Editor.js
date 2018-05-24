@@ -18,20 +18,33 @@ const styles = theme => ({
 });
 
 class Editor extends Component {
-  state = {
-    editor: null,
-    collaboration: null,
-    lang: options[1].name
-  };
+  constructor(props) {
+    super(props);
+    this.ace = null;
+    this.state = {
+      editor: null,
+      collaboration: null,
+      lang: options[0].name
+    };
+  }
 
   onInit = (editor, problemId) => {
     editor.lastAppliedChange = null;
-    const collaboration = new Collaboration(editor, problemId);
+    console.log(this.ace);
+    const collaboration = new Collaboration(
+      editor,
+      problemId,
+      this.ace
+    );
     collaboration.subscribe();
     this.setState({
       editor: editor,
       collaboration: collaboration
     });
+  };
+
+  setAce = ace => {
+    this.ace = ace;
   };
 
   onChange = (value, event) => {
@@ -60,13 +73,19 @@ class Editor extends Component {
         onChange={this.onChange}
         onCursorChange={this.onCursorChange}
         onInit={this.onInit}
+        setAce={this.setAce}
         problemId={problemId}
       />
     ) : null;
 
     return (
       <div className={className}>
-        <LanguageSelector onChangeLanguage={this.onChangeLanguage} value={this.state.lang} options={options} className={classes.margin}/>
+        <LanguageSelector
+          onChangeLanguage={this.onChangeLanguage}
+          value={this.state.lang}
+          options={options}
+          className={classes.margin}
+        />
         {editorComp}
       </div>
     );
