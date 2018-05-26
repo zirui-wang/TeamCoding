@@ -6,17 +6,6 @@ import 'brace/mode/java';
 import 'brace/mode/python';
 import 'brace/theme/xcode';
 
-// const markers = [
-//   {
-//     startRow: 0,
-//     startCol: 2,
-//     endRow: 1,
-//     endCol: 20,
-//     className: 'editor_cursor_',
-//     type: 'background'
-//   }
-// ];
-
 const editorArea = props => {
   const { lang } = props;
   return (

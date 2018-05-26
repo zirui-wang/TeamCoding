@@ -14,18 +14,23 @@ const styles = theme => ({
   },
   margin: {
     marginTop: 10,
-    marginBottom: 10,
+    marginBottom: 10
   }
 });
 
 const problemDetail = props => {
   const { classes, className: classNameProp } = props;
   const className = classNames(classes.root, classNameProp);
+  const headline = props.problem.id + '. ' + props.problem.title;
   return (
     <div className={className}>
-      <Typography variant="headline" className={classes.margin}>{props.problem.title}</Typography>
+      <Typography variant="headline" className={classes.margin}>
+        {headline}
+      </Typography>
       <Divider />
-      <Typography variant="body1" className={classes.margin}>{props.problem.desc}</Typography>
+      <Typography variant="body1" className={classes.margin}>
+        {props.problem.desc}
+      </Typography>
     </div>
   );
 };

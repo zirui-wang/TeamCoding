@@ -12,15 +12,6 @@ mongoose.connect(keys.mongoURI);
 
 app.use('/api/v1', restRouter);
 
-io.on('connection', client => {
-  client.on('subscribeToTimer', interval => {
-    console.log('client is subscribing to timer with interval ', interval);
-    setInterval(() => {
-      client.emit('timer', new Date());
-    }, interval);
-  })
-})
-
 const PORT = process.env.PORT || 5000;
 // app.listen(PORT);
 

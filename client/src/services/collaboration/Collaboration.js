@@ -60,4 +60,8 @@ export default class Collaboration {
   cursorMove = cursor => {
     this.socket.emit('cursorMove', cursor);
   };
+
+  restoreBuffer = () => {
+    this.socket.emit('restoreBuffer');
+  }
 }

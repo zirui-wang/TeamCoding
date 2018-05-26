@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import ProblemDetails from '../components/problemDetail/ProblemDetail';
 import Editor from './Editor';
-import { fetchProblem } from '../store/actions';
+import { fetchProblem } from '../services/problems/Problems';
 import Button from '../components/UI/Button';
 import Modal from '../components/UI/Modal';
 
@@ -21,11 +21,13 @@ const styles = {
 
 class Problem extends Component {
   state = {
-    showModal: false
+    showModal: false,
+    problem: null
   };
 
-  componentDidMount() {
-    this.props.fetchProblem(this.props.match.params.id);
+  async componentDidMount() {
+    const problem = await fetchProblem(this.props.match.params.id);
+    this.setState({ problem: problem });
   }
 
   displayProblem(problem) {
@@ -52,22 +54,22 @@ class Problem extends Component {
     );
   }
 
-  modalOpen = ()  => {
+  modalOpen = () => {
     this.setState({ showModal: true });
-  }
+  };
 
   modalClose = () => {
     this.setState({ showModal: false });
-  }
+  };
 
   render() {
-    const { classes, problem } = this.props;
+    const { classes } = this.props;
     return (
       <div className={classes.root}>
-        {this.displayProblem(problem)}
+        {this.displayProblem(this.state.problem)}
         <Editor
           className={classes.margin}
-          problemId={problem ? problem.id : null}
+          problemId={this.props.match.params.id}
         />
         <div>
           <Button
@@ -94,12 +96,4 @@ class Problem extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    problem: state.problems.problem
-  };
-};
-
-export default connect(mapStateToProps, { fetchProblem })(
-  withStyles(styles)(Problem)
-);
+export default connect(null, null)(withStyles(styles)(Problem));

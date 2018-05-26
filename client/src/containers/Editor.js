@@ -21,26 +21,28 @@ class Editor extends Component {
   constructor(props) {
     super(props);
     this.ace = null;
+    this.editor = null;
+    this.collaboration = null;
     this.state = {
-      editor: null,
-      collaboration: null,
       lang: options[0].name
     };
   }
 
+  shouldComponentUpdate(nextProps) {
+    return nextProps.problemId !== this.props.problemId;
+  }
+
   onInit = (editor, problemId) => {
     editor.lastAppliedChange = null;
-    console.log(this.ace);
-    const collaboration = new Collaboration(
-      editor,
-      problemId,
-      this.ace
-    );
+    const collaboration = new Collaboration(editor, problemId, this.ace);
     collaboration.subscribe();
-    this.setState({
-      editor: editor,
-      collaboration: collaboration
-    });
+    collaboration.restoreBuffer();
+    this.editor = editor;
+    this.collaboration = collaboration;
+    // this.setState({
+    //   editor: editor,
+    //   collaboration: collaboration
+    // });
   };
 
   setAce = ace => {
@@ -49,14 +51,14 @@ class Editor extends Component {
 
   onChange = (value, event) => {
     // console.log('editor changes: ' + JSON.stringify(event));
-    if (this.state.editor.lastAppliedChange !== event) {
-      this.state.collaboration.change(JSON.stringify(event));
+    if (this.editor.lastAppliedChange !== event) {
+      this.collaboration.change(JSON.stringify(event));
     }
   };
 
   onCursorChange = (selection, event) => {
     const cursor = selection.getCursor();
-    this.state.collaboration.cursorMove(JSON.stringify(cursor));
+    this.collaboration.cursorMove(JSON.stringify(cursor));
   };
 
   onChangeLanguage = event => {
@@ -66,7 +68,6 @@ class Editor extends Component {
   render() {
     const { classes, className: classNameProp, problemId } = this.props;
     const className = classNames(classes.root, classNameProp);
-
     const editorComp = problemId ? (
       <EditorArea
         lang={this.state.lang}
