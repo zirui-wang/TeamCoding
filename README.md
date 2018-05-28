@@ -13,19 +13,23 @@ Tech Stack:
 
 ## Features
 
-### Collaboration: real-time content and cursor change
+### Collaboration:
+Real-time content and cursor change.
 
 <img src="https://s1.gifyu.com/images/collaboration.gif" width=80% >
 
-### Build and run: code can be complied and run, and then show the result
+### Build and run:
+Code can be complied and run, and then show the result.
 
 <img src="https://s1.gifyu.com/images/submit.gif" width=40%>
 
-### Load current code: new user
+### Load current code:
+New user's editor will load current code.
 
 <img src="https://s1.gifyu.com/images/load_code.gif" width=80%>
 
-### Add new question: provide a form for addign questions
+### Add new question:
+Provide a form for addign questions.
 
 <img src="https://s1.gifyu.com/images/add_question.gif" width=40%>
 
