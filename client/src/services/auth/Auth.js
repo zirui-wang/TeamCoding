@@ -1,5 +1,5 @@
 import auth0 from 'auth0-js';
-import { AUTH_CONFIG } from '../../config/dev';
+import { AUTH_CONFIG } from '../../config/keys';
 
 export default class Auth {
   auth0 = new auth0.WebAuth({

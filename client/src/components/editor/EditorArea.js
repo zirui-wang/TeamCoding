@@ -7,9 +7,10 @@ import 'brace/mode/python';
 import 'brace/theme/xcode';
 
 const editorArea = props => {
-  const { lang } = props;
+  const { lang, className: classNameProp } = props;
   return (
     <AceEditor
+      className={classNameProp}
       onLoad={editor => props.onInit(editor, props.problemId)}
       onBeforeLoad={ace => props.setAce(ace)}
       mode={lang}

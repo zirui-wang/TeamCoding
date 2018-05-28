@@ -3,14 +3,17 @@ import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 
 import Collaboration from '../services/collaboration/Collaboration';
-import LanguageSelector from '../components/editor/LanguageSelector';
+
 import EditorArea from '../components/editor/EditorArea';
-import options from '../components/editor/languageFields';
+import Button from '../components/UI/Button';
 
 const styles = theme => ({
   root: {
     width: '100%',
     maxWidth: 800
+  },
+  buttons: {
+    float: 'right'
   },
   margin: {
     marginBottom: 20
@@ -23,9 +26,6 @@ class Editor extends Component {
     this.ace = null;
     this.editor = null;
     this.collaboration = null;
-    this.state = {
-      lang: options[0].name
-    };
   }
 
   shouldComponentUpdate(nextProps) {
@@ -39,10 +39,6 @@ class Editor extends Component {
     collaboration.restoreBuffer();
     this.editor = editor;
     this.collaboration = collaboration;
-    // this.setState({
-    //   editor: editor,
-    //   collaboration: collaboration
-    // });
   };
 
   setAce = ace => {
@@ -61,8 +57,8 @@ class Editor extends Component {
     this.collaboration.cursorMove(JSON.stringify(cursor));
   };
 
-  onChangeLanguage = event => {
-    this.setState({ lang: event.target.value });
+  onResetEditor = () => {
+    this.editor.setValue('');
   };
 
   render() {
@@ -70,7 +66,8 @@ class Editor extends Component {
     const className = classNames(classes.root, classNameProp);
     const editorComp = problemId ? (
       <EditorArea
-        lang={this.state.lang}
+        className={classes.margin}
+        lang={this.props.lang}
         onChange={this.onChange}
         onCursorChange={this.onCursorChange}
         onInit={this.onInit}
@@ -81,13 +78,26 @@ class Editor extends Component {
 
     return (
       <div className={className}>
-        <LanguageSelector
-          onChangeLanguage={this.onChangeLanguage}
-          value={this.state.lang}
-          options={options}
-          className={classes.margin}
-        />
         {editorComp}
+        <div className={classes.buttons}>
+          <Button
+            size="large"
+            variant="outlined"
+            color="secondary"
+            onClick={this.onResetEditor}
+          >
+            Reset
+          </Button>
+          <Button
+            size="large"
+            variant="outlined"
+            color="primary"
+            onClick={() => this.props.onModalOpen(this.editor.getValue())}
+            style={{ marginLeft: 10 }}
+          >
+            Submit
+          </Button>
+        </div>
       </div>
     );
   }

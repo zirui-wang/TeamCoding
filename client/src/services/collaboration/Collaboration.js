@@ -1,10 +1,11 @@
 import io from 'socket.io-client';
 import { COLORS } from '../../assets/colors';
+import { SERVER_CONFIG } from '../../config/keys';
 
 export default class Collaboration {
   constructor(editor, sessionID, ace) {
     this.editor = editor;
-    this.socket = io('http://localhost:5000', {
+    this.socket = io(SERVER_CONFIG.address, {
       query: 'sessonId=' + sessionID
     });
     this.clientsInfo = {};
@@ -48,7 +49,11 @@ export default class Collaboration {
         this.clientNum++;
       }
       let Range = this.ace.acequire('ace/range').Range;
-      let newMarker = session.addMarker(new Range(x, y, x, y + 1), 'editor_cursor_' + changeClientId, true);
+      let newMarker = session.addMarker(
+        new Range(x, y, x, y + 1),
+        'editor_cursor_' + changeClientId,
+        true
+      );
       this.clientsInfo[changeClientId]['marker'] = newMarker;
     });
   };
@@ -63,5 +68,5 @@ export default class Collaboration {
 
   restoreBuffer = () => {
     this.socket.emit('restoreBuffer');
-  }
+  };
 }
