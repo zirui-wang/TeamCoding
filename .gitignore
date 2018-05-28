@@ -2,3 +2,4 @@ node_modules
 dev.js
 *.py[cod]
 */tmp/*
+launcher.sh
