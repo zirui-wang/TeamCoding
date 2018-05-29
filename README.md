@@ -1,6 +1,6 @@
 # Team Coding ![CircleCI](https://img.shields.io/circleci/project/github/RedSparr0w/node-csgo-parser.svg?style=flat-square)
 
-A collaborative online judgement platform supporting adding problems. Currently this project only support `Python` build and run.
+A collaborative online judgement platform supporting adding problems. Currently this project only supports `Python` build and run.
 
 Tech Stack:
 
@@ -16,22 +16,22 @@ Tech Stack:
 ### Collaboration:
 Real-time content and cursor change.
 
-<img src="https://s1.gifyu.com/images/collaboration.gif" width=80% >
+<img src="https://s1.gifyu.com/images/collaborationdee54f9deb36e86d.gif" width=80% >
 
 ### Build and run:
 Code can be complied and run, and then show the result.
 
-<img src="https://s1.gifyu.com/images/submit.gif" width=40%>
+<img src="https://s1.gifyu.com/images/submit712020f76e25a263.gif" width=40%>
 
 ### Load current code:
 New user's editor will load current code.
 
-<img src="https://s1.gifyu.com/images/load_code.gif" width=80%>
+<img src="https://s1.gifyu.com/images/redis.gif" width=80%>
 
 ### Add new question:
-Provide a form for addign questions.
+Provide a form for adding new question.
 
-<img src="https://s1.gifyu.com/images/add_question.gif" width=40%>
+<img src="https://s1.gifyu.com/images/add_questionef2f2bc22ea791dd.gif" width=40%>
 
 ## How to play
 
@@ -64,7 +64,7 @@ Of course, you can also use `concurrently` to run client & routing server at the
 
 ## Config
 
-1. Create `dev.js` under `./server/config` (routing server):
+1. Create a `dev.js` under `./server/config` (routing server):
 
   ```js
   module.exports = {
@@ -73,7 +73,7 @@ Of course, you can also use `concurrently` to run client & routing server at the
   };
   ```
 
-2. Create `dev.js` under `./src/client/config` (client server):
+2. Create a `dev.js` under `./src/client/config` (client server):
 
   ```js
   export const AUTH_CONFIG = {
